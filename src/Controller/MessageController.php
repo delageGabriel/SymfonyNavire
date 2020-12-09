@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\GestionContact;
-
+use App\Entity\Message;
+use App\Form\MessageType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
- * @Route("/message", name"messagee_")
+ * @Route("/message", name="messagee_")
  */
 class MessageController extends AbstractController {
 
@@ -23,27 +25,20 @@ class MessageController extends AbstractController {
     }
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact",name="message_envoieMail")
+     * @Template("message/contact.html.twig")
+     * @return type
      */
-    public function contact(Request $request, GestionContact $gestionContact): Response {
-        $message = new Message();
-
-        $form->$this->createForm(MessageType::class, $message);
+    public function EnvoieMail(Request $request){
+        $message= new Message();
+        $form=$this->createForm(MessageType::class,$message);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $message = $form->getData();
-
-            $gestionContact->envoiMailContact($message);
-
-
-            $this->addFlash('notification', "Votre message a bien été envoyé");
-            return $this->redirectToRoute("home");
+        if($form->isSubmitted()){
+            $message=$form->getData();          
+            GestionContact::envoiMailContact($message);          
         }
-
-        return $this->render('message/contact.html.twig', [
-                    'form' => $form->createView(),
-        ]);
+       
+        return array('form'=>$form->createView());
     }
 
 }

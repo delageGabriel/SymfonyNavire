@@ -9,7 +9,7 @@ use Symfony\Component\Form\AbstractType;
 /**
  * @ORM\Entity(repositoryClass=AisShipTypeRepository::class)
  */
-class AisShipTypeType extends AbstractType
+class AisShipType extends AbstractType
 {
     /**
      * @ORM\Id
