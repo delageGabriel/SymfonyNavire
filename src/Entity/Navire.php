@@ -4,12 +4,12 @@ namespace App\Entity;
 
 use App\Repository\NavireRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=NavireRepository::class)
  */
-class Navire
-{
+class Navire {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,16 +19,28 @@ class Navire
 
     /**
      * @ORM\Column(type="string", length=7)
+     * @Assert\Regex(
+     *      pattern="/[1-9][7]/",
+     *      message="Le numéro IMO doit comporter sept chiffres"
+     * )
      */
     private $imo;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(
+     *                  min=3,
+     *                  max=100,
+     *                  )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=9)
+     * @Assert\Regex(
+     *      pattern="/[1-9][9]/",
+     *      message="Le numéro MMSI doit comporter 9 chiffres"
+     * )
      */
     private $mmsi;
 
@@ -38,72 +50,62 @@ class Navire
     private $indicatifAppel;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $eta;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getImo(): ?string
-    {
+    public function getImo(): ?string {
         return $this->imo;
     }
 
-    public function setImo(string $imo): self
-    {
+    public function setImo(string $imo): self {
         $this->imo = $imo;
 
         return $this;
     }
 
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
-    {
+    public function setNom(string $nom): self {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getMmsi(): ?string
-    {
+    public function getMmsi(): ?string {
         return $this->mmsi;
     }
 
-    public function setMmsi(string $mmsi): self
-    {
+    public function setMmsi(string $mmsi): self {
         $this->mmsi = $mmsi;
 
         return $this;
     }
 
-    public function getIndicatifAppel(): ?string
-    {
+    public function getIndicatifAppel(): ?string {
         return $this->indicatifAppel;
     }
 
-    public function setIndicatifAppel(string $indicatifAppel): self
-    {
+    public function setIndicatifAppel(string $indicatifAppel): self {
         $this->indicatifAppel = $indicatifAppel;
 
         return $this;
     }
 
-    public function getEta(): ?\DateTimeInterface
-    {
+    public function getEta(): ?\DateTimeInterface {
         return $this->eta;
     }
 
-    public function setEta(\DateTimeInterface $eta): self
-    {
+    public function setEta(\DateTimeInterface $eta): self {
         $this->eta = $eta;
 
         return $this;
     }
+
 }
