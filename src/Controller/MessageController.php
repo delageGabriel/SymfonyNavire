@@ -25,11 +25,11 @@ class MessageController extends AbstractController {
     }
 
     /**
-     * @Route("/contact",name="message_envoieMail")
+     * @Route("/contact",name="contact")
      * @Template("message/contact.html.twig")
      * @return type
      */
-    public function EnvoieMail(Request $request){
+    public function contact(Request $request){
         $message= new Message();
         $form=$this->createForm(MessageType::class,$message);
         $form->handleRequest($request);
