@@ -19,9 +19,9 @@ class MessageController extends AbstractController
     }
     
     /**
-     * @Route("/message", name="contact")
+     * @Route("/contact", name="contact")
      */
-    public function formulaire() {
+    public function contact() {
         return $this->render('message/contact.html.twig', [
             'form_name' => 'MessageType',
         ]);
