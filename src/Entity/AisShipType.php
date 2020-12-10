@@ -15,6 +15,7 @@ class AisShipType extends AbstractType
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity="Id")
      */
     private $id;
 
