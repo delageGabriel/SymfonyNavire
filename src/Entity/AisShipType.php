@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 /**
  * @ORM\Entity(repositoryClass=AisShipTypeRepository::class)
+ * @ORM\Table(name="aisshiptype")
  */
 class AisShipType extends AbstractType
 {
