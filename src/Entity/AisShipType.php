@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AisShipTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
@@ -37,6 +39,16 @@ class AisShipType extends AbstractType {
      */
     private $aisShipType;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Port::class, inversedBy="lesTypes")
+     */
+    private $lesPorts;
+
+    public function __construct()
+    {
+        $this->lesPorts = new ArrayCollection();
+    }
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -57,6 +69,30 @@ class AisShipType extends AbstractType {
 
     public function setAisShipType(int $aisShipType): self {
         $this->aisShipType = $aisShipType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Port[]
+     */
+    public function getLesPorts(): Collection
+    {
+        return $this->lesPorts;
+    }
+
+    public function addLesPort(Port $lesPort): self
+    {
+        if (!$this->lesPorts->contains($lesPort)) {
+            $this->lesPorts[] = $lesPort;
+        }
+
+        return $this;
+    }
+
+    public function removeLesPort(Port $lesPort): self
+    {
+        $this->lesPorts->removeElement($lesPort);
 
         return $this;
     }
