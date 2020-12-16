@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" >{% endblock %}
+    </head>
+    <body>
+        <div id="navbar">
+            {% include ('elements/navbar.html.twig')%}
+        </div>
+        {% block body %}
+            {% for message in app.flashes('notification') %}
+                <div class="alert alert-warning">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+
+        <div id="footer">
+            {% include ('elements/footer.html.twig')%}
+        </div>
+    </body>
+</html>
